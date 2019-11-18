@@ -41,8 +41,6 @@ let sortArray = [
     { column: "name", direction: "desc" },
     { column: "column1", direction: "asc" }
 ]
-const columnName = "name"
-const direction = "desc"
 const sortMethod = sortMethodWithDirectionMultiColumn(sortArray)
 const result = array.sort(sortMethod)
 ```
