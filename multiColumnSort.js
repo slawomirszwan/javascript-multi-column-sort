@@ -1,15 +1,13 @@
 function sortMethodAsc(a, b) {
-    return a == b ? 0 : a > b ? 1 : -1;
+    return a === b ? 0 : a > b ? 1 : -1;
 }
 
-function sortMethodWithDirection(direction) { 
-    if (direction === undefined || direction == "asc") {
-        return sortMethodAsc;
-    } else {
-        return function(a, b) {
-            return -sortMethodAsc(a, b);
-        } 
-    }
+function sortMethodDesc(a, b) {
+    return -sortMethodAsc(a, b);
+}
+
+function sortMethodWithDirection(direction = "asc") { 
+    return direction === "asc" ? sortMethodAsc : sortMethodDesc
 }
 
 function sortMethodWithDirectionByColumn(columnName, direction){   
@@ -19,13 +17,13 @@ function sortMethodWithDirectionByColumn(columnName, direction){
     } 
 }
 
-function sortMethodWithDirectionMultiColumn(sortArray) {
+function sortMethodWithDirectionMultiColumn(sortArray = []) {
     //sample of sortArray
     // sortArray = [
     //     { column: "column5", direction: "asc" },
     //     { column: "column3", direction: "desc" }
     // ]
-    const sortMethodsForColumn = (sortArray || []).map( item => sortMethodWithDirectionByColumn(item.column, item.direction) );        
+    const sortMethodsForColumn = sortArray.map( item => sortMethodWithDirectionByColumn(item.column, item.direction) );
     return function(a,b) {
         let sorted = 0;
         let index = 0;
